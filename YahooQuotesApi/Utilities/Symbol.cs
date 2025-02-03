@@ -66,13 +66,17 @@ public readonly struct Symbol : IEquatable<Symbol>, IComparable<Symbol>
             return false;
         if (name.Count(c => c == '.') > 1 || name.Count(c => c == '=') > 1)
             return false;
-        name = name.ToUpper(CultureInfo.InvariantCulture);
+        
         if (name.Contains("=X", StringComparison.OrdinalIgnoreCase))
         {
             if (!name.EndsWith("=X", StringComparison.OrdinalIgnoreCase)
                 || (name.Length != 5 && name.Length != 8)
                 || (name.Length == 8 && name[0..3] == name[3..6]))
                 return false;
+        }
+        else
+        {
+            name = name.ToUpper(CultureInfo.InvariantCulture);
         }
         symbol = new Symbol(name);
         return true;
